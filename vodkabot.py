@@ -215,11 +215,11 @@ def SEND_MESSAGE(op):
                     contact = client.getContact(key)
                     sendMessage(msg.to, ""+contact.displayName+"'s contact")
                 if msg.text == "time":
-                    sendMessage(msg.to, "Current time is" + datetime.datetime.today().strftime('%Y年%m月%d日 %H:%M:%S') + "is")
+                    sendMessage(msg.to, "Sekarang " + datetime.datetime.today().strftime('%d-%m-%Y %H:%M:%S') + "is")
                 if msg.text == "gift":
-                    sendMessage(msg.to, text="gift sent", contentMetadata=None, contentType=9)
+                    sendMessage(msg.to, text="Gift Dikirim", contentMetadata=None, contentType=9)
                 if msg.text == "set":
-                    sendMessage(msg.to, "I have set a read point ♪\n「tes」I will show you who I have read ♪")
+                    
                     try:
                         del wait['readPoint'][msg.to]
                         del wait['readMember'][msg.to]
@@ -227,10 +227,10 @@ def SEND_MESSAGE(op):
                         pass
                     wait['readPoint'][msg.to] = msg.id
                     wait['readMember'][msg.to] = ""
-                    wait['setTime'][msg.to] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+                    wait['setTime'][msg.to] = datetime.datetime.today().strftime('%d-%m-%Y %H:%M:%S')
                     wait['ROM'][msg.to] = {}
                     print wait
-                if msg.text == "tes":
+                if msg.text == "reader":
                     if msg.to in wait['readPoint']:
                         if wait["ROM"][msg.to].items() == []:
                             chiya = ""
@@ -240,9 +240,9 @@ def SEND_MESSAGE(op):
                                 print rom
                                 chiya += rom[1] + "\n"
 
-                        sendMessage(msg.to, "People who readed %s\nthat's it\n\nPeople who have ignored reads\n%sIt is abnormal ♪\n\nReading point creation date n time:\n[%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
+                        sendMessage(msg.to, "Waktu : [%s]"  % (wait['readMember'][msg.to],chiya,setTime[msg.to]))
                     else:
-                        sendMessage(msg.to, "An already read point has not been set.\n「set」you can send ♪ read point will be created ♪")
+                        sendMessage(msg.to, "Ternyata belum diset")
                 else:
                     pass
         else:
